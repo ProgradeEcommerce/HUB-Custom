@@ -1,0 +1,29 @@
+<section class="jumbotron" ng-class="{'active': isActive('catalog/clampitt-products') || isActive('landing')}" ng-show="user.Company.LogoUrl">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-8">
+                <h2 ng-show="Four51User.isAuthenticated()">
+                    <a class="fullWidth" ng-click="refreshUser()" href="/Clampitt">
+                        <img class="img-responsive" ng-src="{{user.Company.LogoUrl}}" />
+                    </a>
+                </h2>
+            </div>
+            <div class="col-xs-12 col-md-4 rightAlign">
+                <h2 ng-show="Four51User.isAuthenticated()">
+                    <a ng-click="" href="#" class="glt-font freeRange">
+                        Balance: $50,000
+                        <!-- ${{user.SpendingAccounts[0].Balance}} -->
+                    </a>
+                    <br />
+                    <a href="http://clampitt.com" class="glt-font freeRange">
+                        clampitt.com <i class="fa fa-arrow-circle-o-right"></i>
+                    </a>
+                    <br />
+                    <a href="http://prograde.espwebsite.com" class="glt-font freeRangeBox">
+                        SPECIAL REQUESTS
+                    </a>
+                </h2>
+            </div>
+        </div>
+    </div>
+</section>
