@@ -1,5 +1,5 @@
-four51.app.controller('SpecFormCtrl', ['$scope', '$location', '$route', '$routeParams', '$window', 'ProductDisplayService', 'Variant',
-function ($scope, $location, $route, $routeParams, $window, ProductDisplayService, Variant) {
+four51.app.controller('SpecFormCtrl', ['$scope', '$location', '$route', '$routeParams', '$window', 'ProductDisplayService', 'Variant', 'Resources',
+function ($scope, $location, $route, $routeParams, $window, ProductDisplayService, Variant, Resources) {
 	$scope.variantErrors = [];
 	var varID = $routeParams.variantInteropID == 'new' ? null :  $routeParams.variantInteropID;
 	$scope.loadingImage = true;
@@ -18,6 +18,14 @@ function ($scope, $location, $route, $routeParams, $window, ProductDisplayServic
 				}
 			});
 		}
+    
+        /*Populates the Logos for CoBrand, Glatfelter, and any other logos*/
+        
+        var allLogos = Resources.logoSpecs;
+				angular.forEach($scope.Variant.Specs, function(spec) {
+					if (!spec.Value)
+						spec.Value = allLogos[spec.Name];
+				});
 	});
 	function validateVariant(){
 		if(!$scope.Variant) return;
@@ -54,5 +62,24 @@ function ($scope, $location, $route, $routeParams, $window, ProductDisplayServic
 	$scope.$on('event:imageLoaded', function(event, result) {
 		$scope.loadingImage = !result;
 		$scope.$apply();
+	});
+	
+	$scope.$watch('Variant.Specs.FacilityName.Value', function () {
+		if ($scope.Variant.Specs.FacilityName.Value == null) {
+			$scope.Variant.Specs.Address1.Value = '';
+			$scope.Variant.Specs.CitySTZip.Value = '';
+		}
+		else if ($scope.Variant.Specs.FacilityName.Value == 'Chillicothe Facility') {
+			$scope.Variant.Specs.Address1.Value = '232 E 8th Street';
+			$scope.Variant.Specs.CitySTZip.Value = 'Chillicothe, OH 45601';
+		}
+		else if ($scope.Variant.Specs.FacilityName.Value == 'Corporate Headquarters') {
+			$scope.Variant.Specs.Address1.Value = '96 South George Street';
+			$scope.Variant.Specs.CitySTZip.Value = 'York, PA 17401';
+		}
+		else if ($scope.Variant.Specs.FacilityName.Value == 'Spring Grove Facility') {
+			$scope.Variant.Specs.Address1.Value = '228 South Main Street';
+			$scope.Variant.Specs.CitySTZip.Value = 'Spring Grove, PA 17362';
+		}
 	});
 }]);
