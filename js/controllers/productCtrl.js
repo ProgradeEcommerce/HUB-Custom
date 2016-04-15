@@ -155,7 +155,7 @@ function ($scope, $routeParams, $route, $location, $451, Product, ProductDisplay
 				$scope.loadingIndicator = false;
 			}
 			if($scope.LineItem.Specs.CompanyLogo.Value == ""){
-		$scope.LineItem.Specs.CompanyLogo.Value = $scope.user.Company;
+		$scope.LineItem.Specs.CompanyLogo.Value = $scope.user.Company.Name;
 		}
 		});
 	}
